@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mombasa: Vanishing Heritage</title>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #e6f7ff;
+      margin: 0;
+      padding: 0;
+      color: #003d66;
+    }
+    header {
+      background-image: url('https://images.unsplash.com/photo-1526401485004-2fa805f40077?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 280px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .team-member {
+      flex: 1;
+      min-width: 200px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    footer {
+      background-color: #003d66;
+      color: #fff;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+    #scrollBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 10px 14px;
+      background-color: #3399cc;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Mombasa: Vanishing Heritage</h1>
+</header>
+
+<section>
+  <h2>📖 About the Film</h2>
+  <p>
+    In a fast-paced world dominated by modern trends and digital shifts, Mombasa—a city steeped in history and cultural legacy—is quietly losing its traditional identity. This documentary investigates how long-standing customs, ancestral values, and artistic expressions are fading from daily life, as younger generations embrace global influences.
+  </p>
+</section>
+
+<section>
+  <h2>🎬 Watch the Documentary</h2>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/oQgCfe1OT3I" 
+            title="Mombasa Documentary"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+  </div>
+</section>
+
+<section>
+  <h2>👥 Meet the Team</h2>
+  <div class="team">
+    <div class="team-member">
+      <h3>Abubakr</h3>
+    </div>
+    <div class="team-member">
+      <h3>James</h3>
+    </div>
+   <div class="team-member">
+      <h3>Thomas Thoya</h3>
+    </div>
+    <div class="team-member">
+      <h3>Chesco</h3>
+    </div>
+    <div class="team-member">
+      <h3>Amy</h3>
+    </div>
+    <div class="team-member">
+      <h3>Abdullatif</h3>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><em>“If we don’t preserve today, tomorrow our children will only hear whispers of who we once were.”</em></p>
+  <p><strong>THE CHOICE IS YOURS.</strong></p>
+  <p>&copy; 2025 Echoes of Mombasa</p>
+</footer>
+
+<!-- Scroll-to-top button -->
+<button id="scrollBtn">↑</button>
+
+<!-- JavaScript -->
+<script>
+  const scrollBtn = document.getElementById("scrollBtn");
+
+  window.addEventListener("scroll", () => {
+    scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  const sections = document.querySelectorAll("section");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => observer.observe(section));
+
+  const videoFrame = document.querySelector(".video-container iframe");
+  const videoObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const src = videoFrame.getAttribute("src");
+        if (!src.includes("autoplay=1")) {
+          videoFrame.setAttribute("src", src + "?autoplay=1&mute=1");
+        }
+      }
+    });
+  }, { threshold: 0.6 });
+
+  if (videoFrame) videoObserver.observe(videoFrame);
+</script>
+
+</body>
+</html>
